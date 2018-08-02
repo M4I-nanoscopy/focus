@@ -3,11 +3,11 @@
 # script to upload a file on the status website 
 #---------------------------------------------------------------------
 #
-if [ $# -lt 4 ]
+if [ $# -lt 3 ]
 then
 	echo "Error in reading arguments"
 	echo "Usage: "
-        echo "`basename $0:` <cadaver_executable> <server_url> <microscope> <status_dir>" >&2
+        echo "`basename $0:` <user@server:/path/to/logs> <microscope> <status_dir>" >&2
 	echo "Aborting!"
 	exit 1
 fi
@@ -17,10 +17,9 @@ echo '| Locating the files                                                      
 echo '*============================================================================*'
 echo '|                                                                            |'
 #
-CADAVER=$1
-URL=$2
-MICROSCOPE=$3
-STATUSDIR=$4
+URL=$1
+MICROSCOPE=$2
+STATUSDIR=$3
 #
 if [ ! -d $STATUSDIR ]
 then
@@ -59,27 +58,24 @@ tail -n ${linenum} ${STATUSDIR}/last_imported.txt | sort -r > ${STATUSDIR}/last_
 tail -n ${linenum} ${STATUSDIR}/last_processed.txt | sort -r > ${STATUSDIR}/last_processed.txt.sorted
 tail -n ${linenum} ${STATUSDIR}/last_errors.txt | sort -r > ${STATUSDIR}/last_errors.txt.sorted
 #
-${CADAVER} ${URL} <<EOT
-lcd ${STATUSDIR}
-put last.txt html/logs/${MICROSCOPE}.last
-put last_recorded.txt.sorted html/logs/${MICROSCOPE}.last_recorded
-put last_imported.txt.sorted html/logs/${MICROSCOPE}.last_imported
-put last_processed.txt.sorted html/logs/${MICROSCOPE}.last_processed
-put last_errors.txt.sorted html/logs/${MICROSCOPE}.last_errors
-put sortdata.log html/logs/${MICROSCOPE}.data
-cd html/thumbnails/
-delete ${MICROSCOPE}-*
-put 1-FFT.jpg ${MICROSCOPE}-1-FFT.jpg
-put 1-image.jpg ${MICROSCOPE}-1-image.jpg
-put 2-FFT.jpg ${MICROSCOPE}-2-FFT.jpg
-put 2-image.jpg ${MICROSCOPE}-2-image.jpg
-put 3-image.png ${MICROSCOPE}-3-image.png
-put 4-image.jpg ${MICROSCOPE}-4-image.jpg
-put 6-AverageImage.jpg ${MICROSCOPE}-6-AverageImage.jpg
-put 7-PS.jpg ${MICROSCOPE}-7-PS.jpg
-put 8-PSdriftcor.jpg ${MICROSCOPE}-8-PSdriftcor.jpg
-quit
-EOT
+cd ${STATUSDIR}
+
+scp last.txt ${URL}/logs/${MICROSCOPE}.last
+scp last_recorded.txt.sorted ${URL}/logs/${MICROSCOPE}.last_recorded
+scp last_imported.txt.sorted ${URL}/logs/${MICROSCOPE}.last_imported
+scp last_processed.txt.sorted ${URL}/logs/${MICROSCOPE}.last_processed
+scp last_errors.txt.sorted ${URL}/logs/${MICROSCOPE}.last_errors
+scp sortdata.log ${URL}/logs/${MICROSCOPE}.data
+
+scp 1-FFT.jpg ${URL}/thumbnails/${MICROSCOPE}-1-FFT.jpg
+scp 1-image.jpg ${URL}/thumbnails/${MICROSCOPE}-1-image.jpg
+scp 2-FFT.jpg ${URL}/thumbnails/${MICROSCOPE}-2-FFT.jpg
+scp 2-image.jpg ${URL}/thumbnails/${MICROSCOPE}-2-image.jpg
+scp 3-image.png ${URL}/thumbnails/${MICROSCOPE}-3-image.png
+scp 4-image.jpg ${URL}/thumbnails/${MICROSCOPE}-4-image.jpg
+scp 6-AverageImage.jpg ${URL}/thumbnails/${MICROSCOPE}-6-AverageImage.jpg
+scp 7-PS.jpg ${URL}/thumbnails/${MICROSCOPE}-7-PS.jpg
+scp 8-PSdriftcor.jpg ${URL}/thumbnails/${MICROSCOPE}-8-PSdriftcor.jpg
 
 
 echo '|                                                                            |'
