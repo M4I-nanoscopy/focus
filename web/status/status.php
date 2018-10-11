@@ -349,7 +349,6 @@ echo '
                                 <span class="text-muted"> Select the area in this chart to restrict the time range in all charts </span>
                             </div>
                             <div class="panel-body">
-                                
                                 <div class="flot-chart">
                                     <div class="flot-chart-content" id="log-time-plot"></div>
                                 </div>
@@ -392,7 +391,6 @@ echo '
                             <div class="panel-heading">
                                 <span class="text-warning">Iciness [a.u.] </span>  <br> 
                                 <span class="text-muted"> Provides the relative amount of crystalline ice in the image (should stay below 1.0) </span>
-                                 
                             </div>
                             <div class="panel-body">
                                 <div class="flot-chart">
@@ -404,7 +402,7 @@ echo '
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <span class="text-warning">Defocus Fit [Micrometers] </span> <br> 
+                                <span class="text-warning">Defocus of CTF Fit [Micrometers] </span> <br> 
                                 <span class="text-muted">Defocus values should behave as programmed</span>
                             </div>
                             <div class="panel-body">
@@ -419,16 +417,31 @@ echo '
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <span class="text-warning">Resolution of CTF Fit [Angstroms] </span> <br> 
-                                <span class="text-muted">Lower is better</span>
+                                <span class="text-warning">Phase Shift from PhasePlate [deg] </span> <br> 
+                                <span class="text-muted">Should stay around 90 degrees for a PhasePlate EM, or be at 0 without</span>
                             </div>
                             <div class="panel-body">
                                 <div class="flot-chart">
-                                    <div class="flot-chart-content" id="log-resolution-plot"></div>
+                                    <div class="flot-chart-content" id="log-phase_shift-plot"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span class="text-warning">Astigmatism of CTF Fit [Micrometers]</span> <br> 
+                                <span class="text-muted">Absolute value of astigmatism (Should be as low as possible, and not correlate with defocus.)</span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div class="flot-chart-content" id="log-astig-plot"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -438,6 +451,19 @@ echo '
                             <div class="panel-body">
                                 <div class="flot-chart">
                                     <div class="flot-chart-content" id="log-ccvalue-plot"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <span class="text-warning">Resolution of CTF Fit [Angstroms] </span> <br> 
+                                <span class="text-muted">Lower is better</span>
+                            </div>
+                            <div class="panel-body">
+                                <div class="flot-chart">
+                                    <div class="flot-chart-content" id="log-resolution-plot"></div>
                                 </div>
                             </div>
                         </div>
