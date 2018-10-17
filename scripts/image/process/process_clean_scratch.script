@@ -74,6 +74,8 @@ endif
 #
 if ( ${process_cleanup_raw_gaincorrectedstack} == "y" ) then
   \rm -f ${raw_gaincorrectedstack}.mrcs
+  # Nanoscopy edit: Remove aligned movie stack.
+  \rm -f movie_aligned.mrcs
 endif
 #
 ##########################################################################
